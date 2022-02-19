@@ -135,3 +135,30 @@ TEST_CASE("toVector","[FindPalindromes]")
 
 	REQUIRE(stringVectorstring == Palindromestring); //make sure that the output is exactly what is expected, case preserved
 }
+
+TEST_CASE("cutTest1","[FindPalindromes]")
+{
+	FindPalindrome b; //creates a FindPalindrome object
+
+	std::vector<std::string> testvect; //creates a vector that will be used in the tests below
+
+	testvect.push_back("a");
+	testvect.push_back("aa"); //fills the vector with basic words with 2 character type (a and b)
+	testvect.push_back("aaa");
+	testvect.push_back("b");
+
+	REQUIRE(b.cutTest1(testvect)); //there is a b once which is odd and 6 a's which is even
+
+	testvect.push_back("c"); //adds another character that only appears once
+
+	REQUIRE(!b.cutTest1(testvect)); //if two characters are odd, the test should fail
+
+	testvect.push_back("BBB"); //makes the occurance of b even (4)
+							   //also serves to make sure b = B in the functions eyes
+
+	REQUIRE(b.cutTest1(testvect)); //once b is even, cutTest1 should be true again
+
+	testvect.push_back("ZZZZ"); //testing capitalization implementation
+
+	REQUIRE(b.cutTest1(testvect)); //should evaluate true since there are 4 Z's
+}
