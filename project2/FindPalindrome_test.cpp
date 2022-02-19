@@ -162,3 +162,35 @@ TEST_CASE("cutTest1","[FindPalindromes]")
 
 	REQUIRE(b.cutTest1(testvect)); //should evaluate true since there are 4 Z's
 }
+
+TEST_CASE("cutTest2", "[FindPalindromes]")
+{
+	FindPalindrome b; //creates a FindPalindrome object
+
+	std::vector<std::string> vect1, vect2, vect3, vect4; //these string vectors will be used in the below tests
+
+	vect1.push_back("a");
+	vect1.push_back("b"); //vect 1 {a b c}
+	vect1.push_back("c");
+
+	vect2.push_back("a");
+	vect2.push_back("b");
+	vect2.push_back("e"); //vect 2 {a b e f c}
+	vect2.push_back("f");
+	vect2.push_back("c");
+
+
+	REQUIRE(b.cutTest2(vect1,vect2)); //the larger contains at least one copy of each small vector character
+
+	vect3.push_back("a");
+	vect3.push_back("b"); // vect 3 {a b y}
+	vect3.push_back("y");
+
+	REQUIRE(!b.cutTest2(vect3,vect2)); //should fail since the smaller one (vect 3) contains y which is not in the larger vector (vect 4)
+
+	vect4.push_back("aby"); //this tests with a smaller vector size, but a larger character count
+	vect4.push_back("gfrty"); //vect 4 {aby gfrty}
+
+	REQUIRE(b.cutTest2(vect3,vect4)); //should be true even though 4 has a smaller vector size than 3
+
+}
