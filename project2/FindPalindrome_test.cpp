@@ -219,3 +219,30 @@ TEST_CASE("recursive call function", "[FindPalindromes]")
 
 	//assuming these work, this means the function works since it shows the function iterates th vect.size() factorial
 }
+
+TEST_CASE("clear","[FindPalindromes]")
+{
+	FindPalindrome b; //creates a FindPalindrome object
+
+	std::vector<std::string> testvect;
+	std::vector<std::vector<std::string>> intermediate;
+
+	testvect.push_back("Never");
+	testvect.push_back("even");
+	testvect.push_back("or"); //fill the testvect with a known palindrome with one real oredering
+	testvect.push_back("odd");
+
+	b.add(testvect); //add the vector to the private words vector
+
+	intermediate = b.toVector(); //set an intermediate value to the vector of vectors value
+
+	REQUIRE(intermediate.size() == 1); //check that vectorofvectors vecctor has a size of 1 before clear
+	REQUIRE(b.number() == 1); //make sure number of palendromes is 1 before clear
+	
+	b.clear();
+	intermediate = b.toVector(); //set an intermediate value to the vector of vectors value after clear function 
+
+	REQUIRE(intermediate.size() == 0); //make sure clear removes all vectorofvector elements
+	REQUIRE(b.number() == 0); //make sure number of palendromes is equal to 0 after clear
+
+}
