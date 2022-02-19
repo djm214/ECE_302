@@ -1,0 +1,34 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/dylan/github-test/ECE_302/project2/FindPalindrome.cpp
+string
+-
+vector
+-
+iostream
+-
+locale
+-
+bits/stdc++.h
+-
+FindPalindrome.hpp
+/home/dylan/github-test/ECE_302/project2/FindPalindrome.hpp
+
+/home/dylan/github-test/ECE_302/project2/FindPalindrome.hpp
+string
+-
+vector
+-
+
+/home/dylan/github-test/ECE_302/project2/FindPalindrome_main.cpp
+iostream
+-
+FindPalindrome.hpp
+/home/dylan/github-test/ECE_302/project2/FindPalindrome.hpp
+
