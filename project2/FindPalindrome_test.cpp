@@ -105,3 +105,33 @@ TEST_CASE("Number of Palindromes","[FindPalindromes]")
 
 	REQUIRE(b.number() == 1); //this set should result in 1 factorial possibilities
 }
+
+TEST_CASE("toVector","[FindPalindromes]")
+{
+	FindPalindrome b; //creates a FindPalindrome object
+
+	std::vector<std::string> stringVector,upReturn;
+	std::vector<std::vector<std::string>> returnedValue; //creates variables that will be used to carry out tests in this case
+	std::string stringVectorstring,Palindromestring;
+
+	Palindromestring = "NeverODDorEven"; //case preserved expected palindrome in a concatenated string
+
+	stringVector.push_back("Never");
+	stringVector.push_back("Even");
+	stringVector.push_back("or"); //fills a stringVector with various legal words
+	stringVector.push_back("ODD");
+
+	b.add(stringVector); //call the add vector function
+	returnedValue = b.toVector(); //get the vector of the palindrome
+
+	upReturn = returnedValue.front(); //set the variable upReturn vector equal to the first vector in the vectorofvectors
+
+	REQUIRE(upReturn.size() == 4); //makes sure the right size vector is obtained
+
+	for(int i = 0; i < upReturn.size(); i++)
+	{
+		stringVectorstring += upReturn.at(i); //concatenates the first vector of strings
+	}
+
+	REQUIRE(stringVectorstring == Palindromestring); //make sure that the output is exactly what is expected, case preserved
+}
