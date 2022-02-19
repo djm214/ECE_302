@@ -194,3 +194,28 @@ TEST_CASE("cutTest2", "[FindPalindromes]")
 	REQUIRE(b.cutTest2(vect3,vect4)); //should be true even though 4 has a smaller vector size than 3
 
 }
+
+TEST_CASE("recursive call function", "[FindPalindromes]")
+{
+	FindPalindrome b; //creates a FindPalindrome object
+
+	std::vector<std::string> testvect; //creates a vector of strings that will be used below in tests
+
+	testvect.push_back("a");
+	testvect.push_back("aa"); //testvect {a aa aaa}
+	testvect.push_back("aaa");
+
+	b.add(testvect); //adds a vector with the three a values the add function calls the recursive function
+
+	REQUIRE(b.number() == 6); //should find N! palindromes since all characters ar a, which means every combination is a palindrome
+
+	b.add("aaaa"); //adds a vector with the three a values the add function calls the recursive function
+
+	REQUIRE(b.number() == 24); //should equal 4 factorial now
+
+	b.add("aaaaa"); 
+
+	REQUIRE(b.number() == 120); //should equal 5 factorial now
+
+	//assuming these work, this means the function works since it shows the function iterates th vect.size() factorial
+}
