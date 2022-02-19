@@ -66,3 +66,42 @@ TEST_CASE("add vector","[FindPalindrome]")
 	REQUIRE(!b.add(stringVector)); //require that this fails due to the illegal addition
 	
 }
+
+TEST_CASE("Number of Palindromes","[FindPalindromes]")
+{
+	FindPalindrome b; //creates a FindPalindrome object
+
+	std::vector<std::string> stringVector; //a vector variable that will be used to carry out tests here
+
+	stringVector.push_back("Never");
+	stringVector.push_back("Even");
+	stringVector.push_back("or"); //fills a stringVector with various legal words
+	stringVector.push_back("ODD");
+
+	b.add(stringVector); //call the add vector function
+
+	REQUIRE(b.number() == 1); //should return 1 palindrome
+
+	b.clear(); //clears the vector
+
+	REQUIRE(b.number() == 0); //should be zero after vector is cleared
+
+	b.add("a");
+	b.add("Aa"); //fills the vector with 3 words all with the same character with varying case
+	b.add("AAA");
+
+	REQUIRE(b.number() == 6); //this should result in 3 factorial possibilities
+
+	b.clear(); //clears the total vector
+
+	b.add("a"); //fils vector of similar characters with differing size chunks/words
+	b.add("Aa");
+
+	REQUIRE(b.number() == 2); //this set should result in 2 factorial possibilities
+
+	b.clear(); //clears the total vector
+
+	b.add("a"); //adds one word with one character
+
+	REQUIRE(b.number() == 1); //this set should result in 1 factorial possibilities
+}
