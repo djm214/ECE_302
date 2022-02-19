@@ -6,20 +6,6 @@
 
 #IncludeRegexTransform: 
 
-/home/dylan/github-test/ECE_302/project2/FindPalindrome.cpp
-string
--
-vector
--
-iostream
--
-locale
--
-bits/stdc++.h
--
-FindPalindrome.hpp
-/home/dylan/github-test/ECE_302/project2/FindPalindrome.hpp
-
 /home/dylan/github-test/ECE_302/project2/FindPalindrome.hpp
 string
 -
