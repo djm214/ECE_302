@@ -44,7 +44,9 @@ bool isPost(string s) {
 void convert(string &postfix, string &prefix) 
 {
   string operatorStack;     //creates a stack for the operators found
-  string operandStack,operandStack2;      //creates a stack for the operands
+  string operandStack;      //creates a stack for the operands
+  string copyPrefix;
+  int size;
 
   for(int i = 0; i < postfix.size(); i++)
   {
@@ -67,23 +69,22 @@ void convert(string &postfix, string &prefix)
     }
   }
 
-  for(int i = 0; i < operandStack.size(); i++)
-  {
-    operandStack2.at(i) = operandStack.at(operandStack.size() - i); //reverses order of operand stack
-  }
-
-  operandStack = operandStack2; //sets operandStack equal to reversed operandStack
-
   while(operandStack.size() != 0) //while the size of the operand stack is nonzero
   {
-    prefix.push_back(operandStack.front());  //pushback the last element of the operand Stack
-    prefix.push_back(operatorStack.back()); //pushback the last element of the operator Stack
+    copyPrefix.push_back(operandStack.back());  //pushback the last element of the operand Stack
 
     if(operatorStack.size() != 0)
     {
+      copyPrefix.push_back(operatorStack.back()); //pushback the last element of the operator Stack
       operatorStack.pop_back(); //check to make sure the operandStack size is nonzero before using pop_back
     }
     operandStack.pop_back(); //already evaluated if non-zero in the while loop
   }
+
+  while(copyPrefix.size() != 0)
+  {
+    prefix.push_back(copyPrefix.back());
+    copyPrefix.pop_back();
+  } 
   
 }
