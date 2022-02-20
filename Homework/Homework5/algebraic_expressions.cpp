@@ -44,30 +44,46 @@ bool isPost(string s) {
 void convert(string &postfix, string &prefix) 
 {
   string operatorStack;     //creates a stack for the operators found
-  string operandStack;      //creates a stack for the operands
+  string operandStack,operandStack2;      //creates a stack for the operands
 
   for(int i = 0; i < postfix.size(); i++)
   {
     switch(postfix.at(i))
     {
-      case ("+" || "-" || "*" || "/") //case operator
+      case '+':  //case for all operators
+      case '-':
+      case '*':
+      case '/':
 
-      operatorStack.push_back(); //adds the operator to the operatorStack
+      operatorStack.push_back(postfix.at(i)); //adds the operator to the operatorStack
 
       break;
 
-      case("a"||"b"||"c"||"d"||"e"||"f"||"g"||"h"||"i"||"j"||"k"||"l"||"m"||"n"||"o"
-           "p"||"q"||"r"||"s"||"t"||"u"||"v"||"w"||"x"||"y"||"z")
+      default: //if the character is not an operator, assume it is a variable
 
-        prefix.push_back(); //adds a prefix to the operandStack
+        operandStack.push_back(postfix.at(i)); //adds a prefix to the operandStack
 
       break;
     }
   }
 
-  while(operandStack.size()) //while the size of the operand stack is nonzero
+  for(int i = 0; i < operandStack.size(); i++)
   {
-    
+    operandStack2.at(i) = operandStack.at(operandStack.size() - i); //reverses order of operand stack
+  }
+
+  operandStack = operandStack2; //sets operandStack equal to reversed operandStack
+
+  while(operandStack.size() != 0) //while the size of the operand stack is nonzero
+  {
+    prefix.push_back(operandStack.front());  //pushback the last element of the operand Stack
+    prefix.push_back(operatorStack.back()); //pushback the last element of the operator Stack
+
+    if(operatorStack.size() != 0)
+    {
+      operatorStack.pop_back(); //check to make sure the operandStack size is nonzero before using pop_back
+    }
+    operandStack.pop_back(); //already evaluated if non-zero in the while loop
   }
   
 }
