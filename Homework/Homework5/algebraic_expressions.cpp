@@ -45,8 +45,7 @@ void convert(string &postfix, string &prefix)
 {
   string operatorStack;     //creates a stack for the operators found
   string operandStack;      //creates a stack for the operands
-  string copyPrefix;
-  int size;
+  int index = 2;            //offset from variables to operator
 
   for(int i = 0; i < postfix.size(); i++)
   {
@@ -57,34 +56,52 @@ void convert(string &postfix, string &prefix)
       case '*':
       case '/':
 
-      operatorStack.push_back(postfix.at(i)); //adds the operator to the operatorStack
+        operatorStack.push_back(postfix.at(i)); //adds the operator to the operatorStack
 
+        //if there are multiple operators in a row, parnthasis are involved
+        if(postfix.at(i+1) == '+' ||postfix.at(i+1) == '-' ||postfix.at(i+1) == '*' ||postfix.at(i+1) == '/')
+        {
+          postfix.push_back('(');             //add a starting parenthasis
+          prefix.push_back(postfix.at(i-2));  //add a
+          while(postfix.at(i+1) == '+' ||postfix.at(i+1) == '-' ||postfix.at(i+1) == '*' ||postfix.at(i+1) == '/')
+          {
+            prefix.push_back(postfix.at(i));
+            prefix.push_back(postfix.at(i - index));
+            index = index*2;
+            i++;
+          }
+          prefix.push_back(postfix.at(i));
+          prefix.push_back(postfix.at(i - index));
+
+          index = 2;
+
+          prefix.push_back(')');
+        }
+        
       break;
 
-      default: //if the character is not an operator, assume it is a variable
+      default: 
 
-        operandStack.push_back(postfix.at(i)); //adds a prefix to the operandStack
+      prefix.push_back(i);
 
       break;
     }
   }
 
+/*
   while(operandStack.size() != 0) //while the size of the operand stack is nonzero
   {
-    copyPrefix.push_back(operandStack.back());  //pushback the last element of the operand Stack
+   
+    prefix.push_back(operandStack.front());  //pushback the last element of the operand Stack
 
     if(operatorStack.size() != 0)
     {
-      copyPrefix.push_back(operatorStack.back()); //pushback the last element of the operator Stack
+      prefix.push_back(operatorStack.back()); //pushback the last element of the operator Stack
       operatorStack.pop_back(); //check to make sure the operandStack size is nonzero before using pop_back
     }
     operandStack.pop_back(); //already evaluated if non-zero in the while loop
+    
   }
+*/
 
-  while(copyPrefix.size() != 0)
-  {
-    prefix.push_back(copyPrefix.back());
-    copyPrefix.pop_back();
-  } 
-  
 }
