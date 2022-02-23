@@ -43,65 +43,96 @@ bool isPost(string s) {
 
 void convert(string &postfix, string &prefix) 
 {
-  string operatorStack;     //creates a stack for the operators found
-  string operandStack;      //creates a stack for the operands
-  int index = 2;            //offset from variables to operator
+  string operandStack;   //creates a stack variable with a size of postfix
+  string intermediate;            //creates an intermediate string value
+  string operations;
+  string parenthesisOpStack;
+  bool parenthesisAdded = false;
+  bool previousWasOp = false;
+  int parenthesesInsertion = 0;
 
   for(int i = 0; i < postfix.size(); i++)
   {
-    switch(postfix.at(i))
+    if(isoperator(postfix[i]))  //if the character within the index is an operator
     {
-      case '+':  //case for all operators
-      case '-':
-      case '*':
-      case '/':
+      operations.push_back(postfix[i]);
 
-        operatorStack.push_back(postfix.at(i)); //adds the operator to the operatorStack
-
-        //if there are multiple operators in a row, parnthasis are involved
-        if(postfix.at(i+1) == '+' ||postfix.at(i+1) == '-' ||postfix.at(i+1) == '*' ||postfix.at(i+1) == '/')
+      if(previousWasOp && (i != (postfix.size()-1))) //if the last element was also an operator
+      {
+        operations.push_back(postfix[i]);       //adds the operation to an operationStack
+        if(!parenthesisAdded)
         {
-          postfix.push_back('(');             //add a starting parenthasis
-          prefix.push_back(postfix.at(i-2));  //add a
-          while(postfix.at(i+1) == '+' ||postfix.at(i+1) == '-' ||postfix.at(i+1) == '*' ||postfix.at(i+1) == '/')
-          {
-            prefix.push_back(postfix.at(i));
-            prefix.push_back(postfix.at(i - index));
-            index = index*2;
-            i++;
-          }
-          prefix.push_back(postfix.at(i));
-          prefix.push_back(postfix.at(i - index));
-
-          index = 2;
-
-          prefix.push_back(')');
+          intermediate.push_back('('); //if this is the first time entering this loop add a parenthesis
+          parenthesisOpStack.push_back(postfix[i-1]); //add previous operation to a new stack
+          operations.pop_back();
+          parenthesesInsertion = i-1; //sets the insertion point for parentheses
+          parenthesisAdded = true; //now a parenthesis has been added so set flag to true
         }
-        
-      break;
 
-      default: 
+        bool whileLoopTracker = false;
 
-      prefix.push_back(i);
+        while(isoperator(postfix[i])) //while the previous character is an operator
+        {
+          parenthesisOpStack.push_back(postfix[i]); //load that operator into the operator stack
+          i++; //increment i
+          whileLoopTracker = true;
+        } //this looop ultimate copies every adjacent operator into the operation stack
 
-      break;
-    }
-  }
+        if(whileLoopTracker)
+        {
+          i--; //decrements i once if it went through the while loop
+               //this is because if the while loop failed, the character is NOT an operator
+          whileLoopTracker = false; //resets flag to false
+        }
 
-/*
-  while(operandStack.size() != 0) //while the size of the operand stack is nonzero
-  {
-   
-    prefix.push_back(operandStack.front());  //pushback the last element of the operand Stack
+        int origOpSize = parenthesisOpStack.size();
 
-    if(operatorStack.size() != 0)
+        while(parenthesisOpStack.size() != 0) //while the parenthesis stack is nonzero
+        {
+          intermediate.push_back(operandStack.at(operandStack.size() - parenthesisOpStack.size()-1)); //read in the first concerned variable, then the next until the end of the operand stack
+         
+          intermediate.push_back(parenthesisOpStack.back()); //pass in the last element of operations stack
+          parenthesisOpStack.pop_back(); //delete that element
+        }
+
+        intermediate.push_back(operandStack.back());
+
+        for(int k = origOpSize; k >= 0; k--)
+        {
+          operandStack.pop_back(); //erases the operands added to intermediate
+        }
+
+        if(parenthesisAdded)
+        {
+          intermediate.push_back(')'); //if there is no longer an operator directly after and a parenthesis was added, add a closing parenthesis
+          parenthesisAdded = false; //now the parenthesisisAdded falg is rest to false
+        }
+
+        prefix.append(intermediate); //appends intermediate if it was updated
+        intermediate.clear();
+      }
+      else
+      {
+        prefix.push_back(operations.back());
+        operations.pop_back();
+
+        prefix.push_back(operandStack.back());
+        operandStack.pop_back();
+
+        if(operandStack.size() != 0)
+        {
+          prefix.insert(prefix.begin(),operandStack.back());
+          operandStack.pop_back();
+        }
+
+      }
+
+      previousWasOp = true; //sets the previous was operator flag to one
+      }
+    else //if there was no operator
     {
-      prefix.push_back(operatorStack.back()); //pushback the last element of the operator Stack
-      operatorStack.pop_back(); //check to make sure the operandStack size is nonzero before using pop_back
+      operandStack.push_back(postfix[i]);
+      previousWasOp = false;
     }
-    operandStack.pop_back(); //already evaluated if non-zero in the while loop
-    
   }
-*/
-
 }
