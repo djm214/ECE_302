@@ -44,7 +44,24 @@ int Stack<ItemType>::size() const
 template<class ItemType>
 bool Stack<ItemType>::push(const ItemType& newItem)
 {
-	
+	Node<ItemType>* currentPointer = headPtr; //creates a stand in variable for the current node pointer
+
+	for(int i = 0; i < currentSize; i++)
+	{
+		if((currentPointer->getNext()) == nullptr)
+		{
+			currentPointer = currentPointer; //if the next node is nullptr, do not update the currentpointer
+		}
+		else
+		{
+			currentPointer = currentPointer->getNext(); //traverses the list, getting the next node pointers
+		}
+	}
+
+	currentPointer->setNext(currentPointer->getNext()); //adds a next node
+	currentPointer = currentPointer->getNext(); //sets the next node pointer equal to current pointer
+	currentPointer->setItem(newItem); //sets the value of that node
+
 	return true;
 }  // end push
 
