@@ -1,0 +1,7 @@
+/home/dylan/github-test/ECE_302/project3/CMakeFiles/edit_cache.dir
+/home/dylan/github-test/ECE_302/project3/CMakeFiles/test.dir
+/home/dylan/github-test/ECE_302/project3/CMakeFiles/submission.dir
+/home/dylan/github-test/ECE_302/project3/CMakeFiles/rebuild_cache.dir
+/home/dylan/github-test/ECE_302/project3/CMakeFiles/mainXMLParser.dir
+/home/dylan/github-test/ECE_302/project3/CMakeFiles/mainStack.dir
+/home/dylan/github-test/ECE_302/project3/CMakeFiles/XMLParser-tests.dir

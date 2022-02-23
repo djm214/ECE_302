@@ -1,0 +1,42 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/dylan/github-test/ECE_302/project3/Node.cpp
+cstddef
+-
+Node.hpp
+/home/dylan/github-test/ECE_302/project3/Node.hpp
+
+/home/dylan/github-test/ECE_302/project3/Node.hpp
+Node.cpp
+/home/dylan/github-test/ECE_302/project3/Node.cpp
+
+/home/dylan/github-test/ECE_302/project3/Stack.cpp
+iostream
+-
+cstddef
+-
+Stack.hpp
+/home/dylan/github-test/ECE_302/project3/Stack.hpp
+Node.hpp
+/home/dylan/github-test/ECE_302/project3/Node.hpp
+
+/home/dylan/github-test/ECE_302/project3/Stack.hpp
+stdexcept
+-
+Node.hpp
+/home/dylan/github-test/ECE_302/project3/Node.hpp
+Stack.cpp
+/home/dylan/github-test/ECE_302/project3/Stack.cpp
+
+/home/dylan/github-test/ECE_302/project3/mainStack.cpp
+iostream
+-
+Stack.hpp
+/home/dylan/github-test/ECE_302/project3/Stack.hpp
+
