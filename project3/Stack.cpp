@@ -69,7 +69,22 @@ bool Stack<ItemType>::push(const ItemType& newItem)
 template<class ItemType>
 ItemType Stack<ItemType>::peek() const throw(logic_error)
 {
-	ItemType returnItem;
+	ItemType returnItem; //what will ultimately be returned from the function
+
+	if(currentSize == 0)
+	{
+		throw("The current list is empty, peek cannot execute"); //throw an error if size is zero
+	}
+
+	Node<ItemType>* currentPointer = headPtr; //creates a stand in variable for the current node pointer
+
+	for(int i = 0; i < currentSize; i++)
+	{
+		currentPointer = currentPointer->getNext(); //traverses the list, getting to the final node
+	}
+
+	returnItem = currentPointer->getItem(); //gets the value of the item in the final node
+
 	return returnItem;
 }  // end peek
 
