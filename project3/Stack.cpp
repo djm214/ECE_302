@@ -12,6 +12,8 @@
 template<class ItemType>
 Stack<ItemType>::Stack() 
 {
+	headPtr = nullptr; //initializes the headPtr to null
+	currentSize = 0; //sets the current size of the list to zero
 }  // end default constructor
 
 // TODO: Implement the destructor here
@@ -24,20 +26,25 @@ Stack<ItemType>::~Stack()
 template<class ItemType>
 bool Stack<ItemType>::isEmpty() const
 {
-	return true;
+	if(currentSize == 0)
+	{
+		return true; //if the currentSize variable is zero, then the stack is empty
+	}
+	return false; //returns false for any value other than zero
 }  // end isEmpty
 
 // TODO: Implement the size method here
 template<class ItemType>
 int Stack<ItemType>::size() const
 {
-	return 0;
+	return currentSize; //returns the current size vector
 }  // end size
 
 // TODO: Implement the push method here
 template<class ItemType>
 bool Stack<ItemType>::push(const ItemType& newItem)
 {
+	
 	return true;
 }  // end push
 
