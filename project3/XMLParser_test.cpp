@@ -42,14 +42,29 @@ TEST_CASE( "Test Stack push", "[XMLParser]" )
 		}
 }
 
-TEST_CASE( "Test XMLParser tokenizeInputString", "[XMLParser]" )
+TEST_CASE( "Test Stack pop", "[XMLParser]" )
 {
-	   INFO("Hint: tokenize single element test of XMLParse");
-		// Create an instance of XMLParse
-		XMLParser myXMLParser;
-		string testString = "<test>stuff</test>";
-		bool success;
-		success = myXMLParser.tokenizeInputString(testString);
-		REQUIRE(success);
-}
+	// Create a Stack to hold ints
+	Stack<int> intStack;
+	int testSize = 5;
+	int stackSize; //holds the stack size
+	bool success; //testing bool
 
+	for (int i=0; i<testSize; i++) 
+	{
+		intStack.push(i); //assuming that the push function works, fill the stack with ints
+	}
+
+	REQUIRE(intStack.isEmpty() == false); //the stack should no longer be empty
+
+	for (int i=testSize; i>0 ; i--) 
+	{
+		success = intStack.pop();
+		REQUIRE(success); //pop should always be successful in this case
+		stackSize = intStack.size();
+		success = (stackSize == (i-1)); //the size of the stack should now be one less than before
+		REQUIRE(success);
+	}
+
+	REQUIRE(intStack.isEmpty()); //the stack should now be empty
+}
