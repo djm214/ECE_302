@@ -20,6 +20,10 @@ Stack<ItemType>::Stack()
 template<class ItemType>
 Stack<ItemType>::~Stack()
 {
+	while(!isEmpty())
+	{
+		pop(); //while the stack is not empty, keep popping elements
+	}
 }  // end destructor
 
 // TODO: Implement the isEmpty method here
@@ -44,23 +48,12 @@ int Stack<ItemType>::size() const
 template<class ItemType>
 bool Stack<ItemType>::push(const ItemType& newItem)
 {
-	Node<ItemType>* currentPointer = headPtr; //creates a stand in variable for the current node pointer
+	Node<ItemType>* newNodePointer = new Node<ItemType>(newItem,headPtr); //creates a new node pointer
+	headPtr = newNodePointer; //sets the head pointer to the new Node pointer created
 
-	for(int i = 0; i < currentSize; i++)
-	{
-		if((currentPointer->getNext()) == nullptr)
-		{
-			currentPointer = currentPointer; //if the next node is nullptr, do not update the currentpointer
-		}
-		else
-		{
-			currentPointer = currentPointer->getNext(); //traverses the list, getting the next node pointers
-		}
-	}
+	newNodePointer = nullptr; //makes the variable pointer inaccessable
 
-	currentPointer->setNext(currentPointer->getNext()); //adds a next node
-	currentPointer = currentPointer->getNext(); //sets the next node pointer equal to current pointer
-	currentPointer->setItem(newItem); //sets the value of that node
+	currentSize++; //increases the ammount of objects in the list
 
 	return true;
 }  // end push
@@ -76,23 +69,32 @@ ItemType Stack<ItemType>::peek() const throw(logic_error)
 		throw("The current list is empty, peek cannot execute"); //throw an error if size is zero
 	}
 
-	Node<ItemType>* currentPointer = headPtr; //creates a stand in variable for the current node pointer
+	returnItem = headPtr->getItem(); //returns item on the top of the stack
 
-	for(int i = 0; i < currentSize; i++)
-	{
-		currentPointer = currentPointer->getNext(); //traverses the list, getting to the final node
-	}
+	return returnItem; //returns the returnItem
 
-	returnItem = currentPointer->getItem(); //gets the value of the item in the final node
-
-	return returnItem;
+	
 }  // end peek
 
 // TODO: Implement the pop method here
 template<class ItemType>
 bool Stack<ItemType>::pop() 
 {
-	return false;
+	if(isEmpty())
+	{
+		return false; //if the stack is empty, the operation fails
+	}
+
+	Node<ItemType>* removingPtr = headPtr; //creates a stand in variable for the pointer of node to be deleted
+	headPtr = headPtr->getNext(); //redefines the head ptr now that one is being deleted
+
+	removingPtr->setNext(nullptr); //makes the pointer to be deleted inaccessable
+	delete removingPtr; //deletes memory for removingPtr
+	removingPtr = nullptr; //sets the pointer to nullptr
+
+	currentSize--; //decreases total size of list
+
+	return true;
 }  // end pop
 
 // TODO: Implement the clear method here
