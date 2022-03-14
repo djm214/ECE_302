@@ -138,3 +138,23 @@ TEST_CASE( "Test Stack clear", "[XMLParser]" )
 	REQUIRE(intStack.isEmpty()); //ensures that the stack is now empty
 	REQUIRE(intStack.pop() == false);
 }
+
+TEST_CASE( "Test Stack clear", "[XMLParser]" )
+{
+	// Create a Stack to hold ints
+	Stack<int> intStack;
+	int testSize = 5;
+	int stackSize; //holds the stack size
+	bool success; //testing bool
+
+	for (int i=0; i<testSize; i++) 
+	{
+		intStack.push(i); //assuming that the push function works, fill the stack with ints
+		REQUIRE(intStack.size() == (i+1)); //the stack should have a size of 5 after pushing 5 elements onto stack
+	}
+
+	intStack.clear(); //call the clear function
+
+	REQUIRE(intStack.isEmpty()); //ensures that the stack is now empty
+	REQUIRE(intStack.pop() == false);
+}
