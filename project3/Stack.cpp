@@ -20,10 +20,7 @@ Stack<ItemType>::Stack()
 template<class ItemType>
 Stack<ItemType>::~Stack()
 {
-	while(!isEmpty())
-	{
-		pop(); //while the stack is not empty, keep popping elements
-	}
+	clear(); //calls clear to delete all elements
 }  // end destructor
 
 // TODO: Implement the isEmpty method here
@@ -101,5 +98,9 @@ bool Stack<ItemType>::pop()
 template<class ItemType>
 void Stack<ItemType>::clear()
 {
+	while(!isEmpty())
+	{
+		pop(); //while the stack is not empty, keep popping elements
+	}
 }  // end clear
 

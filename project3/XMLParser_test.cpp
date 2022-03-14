@@ -90,5 +90,31 @@ TEST_CASE( "Test Stack peek", "[XMLParser]" )
 		REQUIRE(success == (i-1)); //peek should always be successful in this case
 		intStack.pop(); //pops the last number on the stack
 	}
+}
 
+TEST_CASE( "Test Stack size", "[XMLParser]" )
+{
+	// Create a Stack to hold ints
+	Stack<int> intStack;
+	int testSize = 5;
+	int stackSize; //holds the stack size
+	bool success; //testing bool
+
+	for (int i=0; i<testSize; i++) 
+	{
+		intStack.push(i); //assuming that the push function works, fill the stack with ints
+		REQUIRE(intStack.size() == (i+1)); //the stack should have a size of 5 after pushing 5 elements onto stack
+
+	}
+
+	for (int i=testSize; i>0 ; i--) 
+	{
+		success = intStack.pop();
+		REQUIRE(success); //pop should always be successful in this case
+		stackSize = intStack.size();
+		success = (stackSize == (i-1)); //the size of the stack should now be one less than before
+		REQUIRE(success);
+	}
+
+	REQUIRE(intStack.size() == 0); //the stack should now be empty
 }
