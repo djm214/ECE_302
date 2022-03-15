@@ -21,7 +21,44 @@ XMLParser::~XMLParser()
 // TODO: Implement the tokenizeInputString method
 bool XMLParser::tokenizeInputString(const std::string &inputString)
 {
+	clear(); //this will ensure that the vector is empty and not tainted from previous runs
+
+	//---------------------------------------------------------------------------------------
+	//Begin Checks/Tests
+	//--------------------------------------------------------------------------------------
+
+	copyString = inputString; //creates a mutable version of the input string
+	int ammount_of_spaces = 0; //will track the ammount of white spaces
+
+	if(inputString.empty())
+	{
+		return false; //if the string is empty, tokenizer fails
+	}
+
+	for(int i = 0; i < copyString.length(); i++)
+	{
+		if(copyString[i] == " ")
+		{
+			ammount_of_spaces++; //increases the ammount of white spaces
+		}
+	}
+
+	if(ammount_of_spaces == copyString.length())
+	{
+		clear(); //make sure that the vector is cleared per project guidelines
+		return false; //tokenizing fails if there is only whitespace
+	}
+
+	if(copyString[0] != '<' || copyString[copySting.length() - 1] != '>')
+	{
+		clear();
+		return false; //if the first and last characters are not '<' and '>' respectively, tokenizing fails
+	}
+
+
+
 	
+
 	return true;
 
 }  // end
