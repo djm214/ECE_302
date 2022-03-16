@@ -85,8 +85,8 @@ bool XMLParser::tokenizeInputString(const std::string &inputString)
 			content.clear(); //clears the content string
 
 			element.push_back('<'); //push < onto the string
-			tag = true;
-			continue;
+			tag = true; //reset tag to true
+			continue; //continue to next 
 		}
 		else if(copyString[j] == '>')
 		{
@@ -104,11 +104,11 @@ bool XMLParser::tokenizeInputString(const std::string &inputString)
 					{
 						continue; //exclude the '/' or '?' if the element is a declaration or if the element is an end tag
 					}
-					plain_name.push_back(element[l]);
+					plain_name.push_back(element[l]); //add to plain_name
 				}
 				else
 				{
-					break;
+					break; //leave loop
 				}
 			}
 
@@ -126,13 +126,13 @@ bool XMLParser::tokenizeInputString(const std::string &inputString)
 
 			for(int m = 0; m < plain_name.length(); m++)
 			{
-				if(plain_name[m] == '!' || plain_name[j] == '\"' || plain_name[j] == '#' || plain_name[j] == '$' 
-					|| plain_name[m] == '%' || plain_name[j] == '&' || plain_name[j] == '\'' || plain_name[j] == '('
-					|| plain_name[m] == '=' || plain_name[j] == '?' || plain_name[j] == '@' || plain_name[j] == '\\'
-					|| plain_name[m] == '[' || plain_name[j] == ']' || plain_name[j] == '^' || plain_name[j] == '`'
-					|| plain_name[m] == '|' || plain_name[j] == '{' || plain_name[j] == '}' || plain_name[j] == '~'
-					|| plain_name[m] == ')' || plain_name[j] == '*' || plain_name[j] == '+' || plain_name[j] == ','
-					|| plain_name[m] == '/' || plain_name[j] == ';' || plain_name[j] == '<' || plain_name[j] == '>')
+				if(plain_name[m] == '!' || plain_name[m] == '\"' || plain_name[m] == '#' || plain_name[m] == '$' 
+					|| plain_name[m] == '%' || plain_name[m] == '&' || plain_name[m] == '\'' || plain_name[m] == '('
+					|| plain_name[m] == '=' || plain_name[m] == '?' || plain_name[m] == '@' || plain_name[m] == '\\'
+					|| plain_name[m] == '[' || plain_name[m] == ']' || plain_name[m] == '^' || plain_name[m] == '`'
+					|| plain_name[m] == '|' || plain_name[m] == '{' || plain_name[m] == '}' || plain_name[m] == '~'
+					|| plain_name[m] == ')' || plain_name[m] == '*' || plain_name[m] == '+' || plain_name[m] == ','
+					|| plain_name[m] == '/' || plain_name[m] == ';' || plain_name[m] == '<' || plain_name[m] == '>')
 				{
 					clear();
 					return false; //checking for illegal characters
@@ -187,6 +187,8 @@ bool XMLParser::tokenizeInputString(const std::string &inputString)
 
 			to_be_pushed.tokenString = plain_name; //add the name to the token
 
+			tokenizedInputVector.push_back(to_be_pushed);
+
 			tag = false; //reset tag bool to false
 			element.clear();
 			plain_name.clear(); //clear both element and plain_name strings
@@ -196,13 +198,13 @@ bool XMLParser::tokenizeInputString(const std::string &inputString)
 
 		//Begin tests that happen on a per letter basis
 
-		if(tag == false && copyString[j] == '>')
+		if((tag == false) && (copyString[j] == '>'))
 		{
 			clear();
 			return false; //tokenization fails due to no matching < since it is not a tag
 		}
 
-		if(tag && copyString[j] == '<')
+		if(tag && (copyString[j] == '<'))
 		{
 			clear();
 			return false; //tokenizing fails due to nested <

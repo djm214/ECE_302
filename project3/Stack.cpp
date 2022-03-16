@@ -63,7 +63,7 @@ ItemType Stack<ItemType>::peek() const throw(logic_error)
 
 	if(currentSize == 0)
 	{
-		throw("The current list is empty, peek cannot execute"); //throw an error if size is zero
+		throw logic_error("The current list is empty, peek cannot execute"); //throw an error if size is zero
 	}
 
 	returnItem = headPtr->getItem(); //returns item on the top of the stack

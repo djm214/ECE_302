@@ -169,7 +169,7 @@ TEST_CASE( "Test Stack isEmpty", "[XMLParser]" )
 //Begin XML tests
 //--------------------------------------------------------------------------------------------------------------------------------------
 
-/**
+/*
 TEST_CASE( "Test XMLParser tokenizeInputString", "[XMLParser]" )
 {
 	   INFO("Hint: tokenize single element test of XMLParse");
@@ -225,7 +225,7 @@ TEST_CASE( "Test Stack handout-1", "[XMLParser]" )
        charStack.clear();
        REQUIRE(charStack.isEmpty() == true);      
 }
-
+/*
 // You can assume that the beginning and the end of CONTENT will not be filled with whitespace
 TEST_CASE( "Test XMLParser tokenizeInputString Handout-0", "[XMLParser]" )
 {
@@ -246,7 +246,7 @@ TEST_CASE( "Test XMLParser tokenizeInputString Handout-0", "[XMLParser]" )
 			REQUIRE(result[i].tokenString.compare(output[i].tokenString) == 0);
 		}
 }
-/*
+
 
 // You can assume that the beginning and the end of CONTENT will not be filled with whitespace
 TEST_CASE( "Test XMLParser tokenizeInputString Handout-1", "[XMLParser]" )
