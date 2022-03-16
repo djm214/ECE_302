@@ -28,6 +28,8 @@ private:
 	Stack<std::string>* parseStack;
 	/** Vector to store the tokenized input string and the token types */
 	std::vector<TokenStruct> tokenizedInputVector;
+
+	bool tokenized = false, parsed = false; //created bools to tell when parsing/tokenizing was successful
   
   // You can add or change the private fields.
 
