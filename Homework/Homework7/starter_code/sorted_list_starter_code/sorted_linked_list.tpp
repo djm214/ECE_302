@@ -44,8 +44,7 @@ void SortedLinkedList<T>::insert(const T& item)
 
   if(isEmpty())
   {
-    newNodePtr->setNext(headPtr);
-    headPtr = newNodePtr;
+    throw std::range_error("empty list in insert");
   }
 }
 
