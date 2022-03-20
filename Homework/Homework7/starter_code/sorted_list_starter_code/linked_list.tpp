@@ -16,18 +16,70 @@ LinkedList<T>::~LinkedList()
 template <typename T>
 LinkedList<T>::LinkedList(const LinkedList<T>& x)
 {
+  currentSize = x.currentSize; //copies current size
+  Node<T>* origPtr = x.headPtr; //copies headPtr
+
+  if(origPtr == nullptr)
+  {
+    headPtr = nullptr; //original bag is empty
+  }
+  else
+  {
+    headPtr = new Node<T>(); //creates a new empty node
+    headPtr->setItem(origPtr->getItem()); //copies value of head pointer
+
+    Node<T>* newPtr = headPtr;
+    origPtr = origPtr->getNext();
+    while(origPtr != nullptr)
+    {
+      T nextItem = origPtr->getItem(); //gets item from origPtr
+      Node<T>* newNodePtr = new Node<T>(nextItem); //creates a new node with the nextItem variable value
+      newPtr->setNext(newPtr); //link to end of chain
+
+      newPtr = newPtr->getNext();
+      origPtr = origPtr->getNext();
+    }
+    newPtr->setNext(nullptr); //end of the chain
+  }
 }
 
 template <typename T>
 void LinkedList<T>::swap(LinkedList<T>& x, LinkedList<T>& y)
 {
-  //TODO
+  LinkedList<T> temp = x; //sets a temp varaible equal to x
+  x = y; //uses the = operator function to swap the lists
+  y = temp; 
 }
 
 template <typename T>
 LinkedList<T>& LinkedList<T>::operator=(const LinkedList<T>& x)
 {
-  //TODO
+  currentSize = x.currentSize;
+  Node<T>* origPtr = x.headPtr;
+  
+  if (origPtr == nullptr)
+  {
+    headPtr = nullptr; 
+  }
+  else 
+  {
+    //make copy of first node
+    headPtr = new Node<T>();
+    headPtr -> setItem(origPtr -> getItem());
+    //copy remaining nodes
+    Node<T>* newPtr = headPtr; 
+    origPtr = origPtr -> getNext();
+    while (origPtr != nullptr) 
+    {
+      //get next item in list, and make new node with item, and link
+      T nextItem = origPtr -> getItem();
+      Node<T>* newNodePtr = new Node<T>(nextItem);
+      newPtr -> setNext(newNodePtr);
+      //shift pointers
+      newPtr = newPtr -> getNext();
+      origPtr = origPtr -> getNext();
+    }
+  } 
   return *this;
 }
 
@@ -137,6 +189,10 @@ T LinkedList<T>::getEntry(std::size_t position) const
       nodePtr = nodePtr->getNext(); //traverses the list
     }
     return nodePtr->getItem(); //returns the current item
+  }
+  else
+  {
+    throw(std::range_error("error in range")); //throw an error
   }
 }
 

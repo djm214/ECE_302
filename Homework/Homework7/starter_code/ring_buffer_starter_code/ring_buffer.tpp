@@ -12,13 +12,51 @@ RingBuffer<T>::RingBuffer(std::size_t size)
   count = 0;
 }
 
-/**
+
 template <typename T>
-bool RingBuffer<T>::enqueue_back(const T& item)
+bool RingBuffer<T>::enqueue_front(const T& item)
 {
-  // TODO
+  if(count != queueLength)
+  {
+    if(front == 0)
+    {
+      std::unique_ptr<T[]> temp;
+      temp.reset(new T[queueLength]); //creates a temp array
+
+      for(int i = 0; i < queueLength; i++)
+      {
+        temp[i] = data[i]; //copy data data into temp
+      }
+      for(int i = 0; i < queueLength; i++)
+      {
+        temp[i+1] = temp[i]; //shift elements of temp over by 1
+      }
+
+      temp[0] = item; //temp variable now holds the correct item at the front
+
+      for(int i = 0; i < queueLength; i++)
+      {
+        data[i] = temp[i]; //copy into temp
+      }
+
+      ++count; //increase total count
+      back++; //increase back
+      return true;
+    }
+    else
+    {
+      front = (front - 1) % queueLength;
+      data[front] = item;
+      ++count;
+      return true;
+    }
+  }
+  else
+  {
+    return false; //fail
+  }
 }
-*/
+
 
 template <typename T>
 bool RingBuffer<T>::enqueue_back(const T& item)
@@ -47,13 +85,21 @@ T RingBuffer<T>::dequeue_front()
   return value;
 }
 
-/**
+
 template <typename T>
-T RingBuffer<T>::dequeue_front()
+T RingBuffer<T>::dequeue_back()
 {
-  // TODO
+  assert(count > 0); //ensure that the count is non-zero
+  
+  T value; //create a T variable to return later
+  
+  value = data[back]; //hold the value at the back
+  back = (back - 1) % queueLength; //decrease back
+
+  --count; //decrement count
+  return value; //return the value
 }
-*/
+
 
 template <typename T>
 long int RingBuffer<T>::getCount()

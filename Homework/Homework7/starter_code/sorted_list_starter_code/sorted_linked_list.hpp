@@ -2,6 +2,7 @@
 #ifndef _SORTED_LINKED_LIST_H_
 #define _SORTED_LINKED_LIST_H_
 
+#include <memory>
 #include "abstract_sorted_list.hpp"
 #include "linked_list.hpp"
 
@@ -49,7 +50,6 @@ public:
 
 private:
 
-  // TODO
   std::shared_ptr<Node<T>> headPtr; //First node in the chain
   int count; //keeps track of current ammount of items
 

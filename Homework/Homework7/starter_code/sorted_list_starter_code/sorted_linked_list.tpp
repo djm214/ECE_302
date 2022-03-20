@@ -40,7 +40,13 @@ std::size_t SortedLinkedList<T>::getLength()
 template <typename T>
 void SortedLinkedList<T>::insert(const T& item)
 {
-  // todo
+  auto newNodePtr(std::make_shared<Node<T>>(item));
+
+  if(isEmpty())
+  {
+    newNodePtr->setNext(headPtr);
+    headPtr = newNodePtr;
+  }
 }
 
 template <typename T>
