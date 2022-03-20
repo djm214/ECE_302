@@ -18,43 +18,23 @@ bool RingBuffer<T>::enqueue_front(const T& item)
 {
   if(count != queueLength)
   {
-    if(front == 0)
+    if(front != (queueLength - 1))
     {
-      std::unique_ptr<T[]> temp;
-      temp.reset(new T[queueLength]); //creates a temp array
-
-      for(int i = 0; i < queueLength; i++)
-      {
-        temp[i] = data[i]; //copy data data into temp
-      }
-      for(int i = 0; i < queueLength; i++)
-      {
-        temp[i+1] = temp[i]; //shift elements of temp over by 1
-      }
-
-      temp[0] = item; //temp variable now holds the correct item at the front
-
-      for(int i = 0; i < queueLength; i++)
-      {
-        data[i] = temp[i]; //copy into temp
-      }
-
-      ++count; //increase total count
-      back++; //increase back
+      front = (front + 1) % queueLength;
+      data[queueLength - front] = item; //have to invert fro front
+      ++count; //increases total count
       return true;
     }
-    else
+    else //in this case, modulation originally gives a wrong answer
     {
-      front = (front - 1) % queueLength;
+      front = (front + 1) % queueLength;
       data[front] = item;
-      ++count;
+      ++count; //increases total count
       return true;
     }
+    
   }
-  else
-  {
-    return false; //fail
-  }
+  return false; //enqueue front fails
 }
 
 
