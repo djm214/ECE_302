@@ -1,5 +1,7 @@
 #include "linked_list.hpp"
 
+//ALL FUNCTIONS GIVEN IN THE HOMEWORK DESCRIPTION ON CANVAS
+
 template <typename T>
 LinkedList<T>::LinkedList()
 {
@@ -39,14 +41,13 @@ LinkedList<T>::LinkedList(const LinkedList<T>& x)
       newPtr = newPtr->getNext();
       origPtr = origPtr->getNext();
     }
-    newPtr->setNext(nullptr); //end of the chain
   }
 }
 
 template <typename T>
 void LinkedList<T>::swap(LinkedList<T>& x, LinkedList<T>& y)
 {
-  LinkedList<T> temp = x; //sets a temp varaible equal to x
+  LinkedList<T> temp(x); //sets a temp varaible equal to x
   x = y; //uses the = operator function to swap the lists
   y = temp; 
 }
@@ -100,35 +101,54 @@ std::size_t LinkedList<T>::getLength() const
 }
 
 template <typename T>
-bool LinkedList<T>::insert(std::size_t position, const T& item)
+bool LinkedList<T>::insert(std::size_t position, const T& item) 
 {
-  if(position != 0 && position <= (currentSize + 1))
+  bool canInsert = (position >= 1) && (position <= currentSize +1);
+  Node<T>* prevPtr = getNodeAt(position - 1);
+      
+  bool isValid;
+  if (position+1 <= currentSize) 
   {
-    Node<T>* newNodePtr = new Node<T>(item); //creates a pointer that will traverse the list
-
-    if(position == 1)
+    Node<T>* postPtr = getNodeAt(position + 1);
+    if (position-1 >= 1 ) 
     {
-      newNodePtr->setNext(headPtr); //if the position of insert is 1, setNext as headPtr
-      headPtr = newNodePtr; //make the new headPtr the newNodePtr
-    }
-    else
-    {
-      Node<T>* prevPtr = headPtr; //this pointer will traverse the list to position-1
-      for(int i = 0; i < (position-1); i++)
-      {
-        prevPtr = prevPtr->getNext(); //traverses the list
-      }
-
-      newNodePtr->setNext(prevPtr->getNext());
-      prevPtr->setNext(newNodePtr);
-    }
-    currentSize++; //increments the current size of the list
-    return true; //success
-  }
+      isValid = (prevPtr -> getItem() < item) && (postPtr -> getItem() > item); 
+    } 
+    else 
+    { 
+      isValid = (postPtr -> getItem()) > item; 
+    } // end if
+  } // end if
   else
   {
-    return false; //the insert fails
+    isValid = true;
   }
+           
+  if (canInsert) 
+  {
+    //new node with entry
+    Node<T>* newNodePtr = new Node<T>(item);
+    //Link new node to list
+    if (position == 1) 
+    {
+      //put node at beginning of the chain is position is 1
+      newNodePtr -> setNext(headPtr);
+      headPtr = newNodePtr;
+    }
+    else 
+    {
+      //put node after the node at position - 1
+      newNodePtr -> setNext( prevPtr -> getNext() );
+      prevPtr -> setNext( newNodePtr );
+    } //end if
+    //increment count
+    currentSize++;
+    } 
+    else 
+    {
+      throw(std::range_error("error in range"));
+  } //end if
+  return canInsert; 
 }
 
 template <typename T>
@@ -173,7 +193,6 @@ void LinkedList<T>::clear()
   while(!isEmpty())
   {
     remove(1); //remove the element at position i
-    currentSize--;
   }
 }
 
@@ -182,9 +201,9 @@ T LinkedList<T>::getEntry(std::size_t position) const
 {
   Node<T>* nodePtr = headPtr; //creates a pointer that will traverse the list
 
-  if(position != 0 && position <= currentSize)
+  if(position >= 1 && position <= currentSize+1)
   {
-    for(int i = 0; i < position; i++)
+    for(int i = 1; i < position; i++)
     {
       nodePtr = nodePtr->getNext(); //traverses the list
     }
@@ -201,12 +220,21 @@ void LinkedList<T>::setEntry(std::size_t position, const T& newValue)
 {
   Node<T>* nodePtr = headPtr; //creates a pointer that will traverse the list
 
-  if(position != 0 && position <= currentSize)
+  if(position >= 1 && position <= currentSize+1)
   {
-    for(int i = 0; i < position; i++)
+    for(int i = 1; i < position; i++)
     {
       nodePtr = nodePtr->getNext(); //traverses the list
     }
     nodePtr->setItem(newValue); //sets the current node with the new Item
   }
 }
+
+template <typename T>
+Node<T>* LinkedList<T>::getNodeAt(int position) const //this is a helper function provided to me
+{
+  Node<T>* curPtr = headPtr;
+  for (std::size_t next = 1; next < position; next++)
+    curPtr = curPtr -> getNext();
+  return curPtr;
+} //end getNodeAt

@@ -53,6 +53,7 @@ private:
   std::shared_ptr<Node<T>> headPtr; //First node in the chain
   int count; //keeps track of current ammount of items
 
+
 };
 
 #include "sorted_linked_list.tpp"

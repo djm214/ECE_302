@@ -1,0 +1,11 @@
+/home/dylan/github-test/ECE_302/project4/p4_starter_code/CMakeFiles/rebuild_cache.dir
+/home/dylan/github-test/ECE_302/project4/p4_starter_code/CMakeFiles/edit_cache.dir
+/home/dylan/github-test/ECE_302/project4/p4_starter_code/CMakeFiles/test.dir
+/home/dylan/github-test/ECE_302/project4/p4_starter_code/CMakeFiles/submission.dir
+/home/dylan/github-test/ECE_302/project4/p4_starter_code/CMakeFiles/pathfinder.dir
+/home/dylan/github-test/ECE_302/project4/p4_starter_code/CMakeFiles/student-tests.dir
+/home/dylan/github-test/ECE_302/project4/p4_starter_code/CMakeFiles/compare.dir
+/home/dylan/github-test/ECE_302/project4/p4_starter_code/lib/CMakeFiles/rebuild_cache.dir
+/home/dylan/github-test/ECE_302/project4/p4_starter_code/lib/CMakeFiles/edit_cache.dir
+/home/dylan/github-test/ECE_302/project4/p4_starter_code/lib/CMakeFiles/test.dir
+/home/dylan/github-test/ECE_302/project4/p4_starter_code/lib/CMakeFiles/image.dir

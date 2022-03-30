@@ -50,8 +50,8 @@ private:
   Node<T>* headPtr; // Pointer to first node
   int currentSize; //will keep track of the size of the list
   
+  Node<T> *getNodeAt(int position) const;
 };
 
 #include "linked_list.tpp"
-
 #endif
