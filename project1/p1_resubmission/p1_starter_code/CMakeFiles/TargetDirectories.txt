@@ -1,0 +1,5 @@
+/home/dylan/github-test/ECE_302/project1/p1_resubmission/p1_starter_code/CMakeFiles/rebuild_cache.dir
+/home/dylan/github-test/ECE_302/project1/p1_resubmission/p1_starter_code/CMakeFiles/edit_cache.dir
+/home/dylan/github-test/ECE_302/project1/p1_resubmission/p1_starter_code/CMakeFiles/test.dir
+/home/dylan/github-test/ECE_302/project1/p1_resubmission/p1_starter_code/CMakeFiles/submission.dir
+/home/dylan/github-test/ECE_302/project1/p1_resubmission/p1_starter_code/CMakeFiles/bitset-tests.dir

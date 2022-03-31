@@ -5,4 +5,7 @@
 
 // TODO
 
-TEST_CASE( "Tests", "[deque]" ) {}
+TEST_CASE( "Tests", "[deque]" ) 
+{
+    Deque<int> tester;
+}
