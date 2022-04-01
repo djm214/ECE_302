@@ -9,6 +9,7 @@ Deque<T>::Deque()
 template <typename T>
 Deque<T>::~Deque()
 {
+  std::clog << "Deque destructor called\n";
   obj->clear(); //clears the list
 }
 
@@ -47,7 +48,7 @@ T Deque<T>::front() const
 template <typename T>
 void Deque<T>::pushBack(const T & item)
 {
-  obj->insert(obj->getLength(),item); //inserts item at the back of the list
+  obj->insert(obj->getLength()+1,item); //inserts item at the back of the list
 }
 
 template <typename T>

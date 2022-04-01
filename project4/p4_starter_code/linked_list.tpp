@@ -7,8 +7,9 @@ Node<T>* LinkedList<T>::getNodeAt(int position) const
   for(int i = 1; i < position; i++)
   {
     curPtr = curPtr->getNext();
-    return curPtr;//will return the node that is at the 1 indexed position
   }
+
+  return curPtr;//will return the node that is at the 1 indexed position
 }
 
 template <typename T>
@@ -117,9 +118,8 @@ template <typename T>
 bool LinkedList<T>::insert(std::size_t position, const T& item)
 {
   bool validityTest;
-  bool ableToAdd = (position >= 1) && (position <= size);
+  bool ableToAdd = (position >= 1) && (position <= (size+1));
   Node<T>* previous = getNodeAt(position-1); //get the node before the node that should come after node to be inserted
-
 
   if(position+1 <= size)
   {
