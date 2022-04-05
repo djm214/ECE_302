@@ -120,7 +120,7 @@ bool LinkedList<T>::insert(std::size_t position, const T& item)
   bool validityTest;
   bool ableToAdd = (position >= 1) && (position <= (size+1));
   Node<T>* previous = getNodeAt(position-1); //get the node before the node that should come after node to be inserted
-
+/*
   if(position+1 <= size)
   {
     Node<T>* next = getNodeAt(position + 1); //hold the node that will come after inseted node
@@ -137,6 +137,7 @@ bool LinkedList<T>::insert(std::size_t position, const T& item)
   {
     validityTest = true;
   }
+  */
 
   if(ableToAdd)
   {
@@ -222,7 +223,7 @@ void LinkedList<T>::setEntry(std::size_t position, const T& newValue)
   bool validityTest;
   bool ableToSet = (position >=1) && (position <= size);
   Node<T>* previous = getNodeAt(position - 1); //get the node beofre the node to be set
-
+/*
   if(position+1 <= size)
   {
     Node<T>* next = getNodeAt(position+1);
@@ -239,6 +240,7 @@ void LinkedList<T>::setEntry(std::size_t position, const T& newValue)
   {
     validityTest = true;
   }
+  */
 
   if(ableToSet)
   {

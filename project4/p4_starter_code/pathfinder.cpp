@@ -20,7 +20,11 @@ int main(int argc, char *argv[])
     }
   }
 
+  Deque<Pixel> frontier;
+  frontier.pushBack(s); //push the starting state onto queue
 
+  Deque<Pixel> explored; //will keep track of which pixels have been explored
+  
 
 
 }
