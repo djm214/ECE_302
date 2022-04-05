@@ -3,8 +3,6 @@
 
 #include "deque.hpp"
 
-// TODO
-
 TEST_CASE( "Tests", "[deque]" ) 
 {
     Deque<int> tester;
