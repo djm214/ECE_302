@@ -3,14 +3,20 @@
 #include "image.h"
 #include "deque.hpp"
 
-bool isExplored(Pixel,std::vector<Pixel>);
+struct Vertex
+{
+  Pixel p; //will contain a pixel
+  int row;
+  int column; //will hold the rows/column values
+};
+
+bool isExplored(Vertex,std::vector<Vertex>);
 
 int main(int argc, char *argv[])
 {
   Image<Pixel> input = readFromFile(argv[1]); //reads in the image
   Image<Pixel> output = readFromFile(argv[2]); //what soln wil be written to
-  Pixel s; //will hold the starting position
-  int r,c;
+  Vertex s; //will hold the starting position
 
   //The following loops will be responsible for locating the starting state
   for(int i = 0; i < input.width();i++)
@@ -34,44 +40,47 @@ int main(int argc, char *argv[])
         }
         else
         {
-          s = input(i,j); //case of solution not equal to goal
-          r = i;
-          c = j; //will keep track of the position [Pixel at (r,c)]
+          s.p = input(i,j); //case of solution not equal to goal
+          s.row = i;
+          s.column = j; //holds coordinates for row/column
         }
       }
     }
   }
 
-  Deque<Pixel> frontier; //will hold all non-explored pixels
+  Deque<Vertex> frontier; //will hold all non-explored pixels
   frontier.pushBack(s); //push the starting state onto queue
 
-  std::vector<Pixel> explored; //will keep track of which pixels have been explored
+  std::vector<Vertex> explored; //will keep track of which pixels have been explored
 
   while(!frontier.isEmpty()) //while the fronteir isn't empty
   {
     s = frontier.front(); //set s equal to the front of the queue
     frontier.popFront(); //pop the back of the queue
 
+    int r = s.row;
+    int c = s.column;
+
     explored.push_back(s); //add s to explored
 
-    if(input(r-1,c) == WHITE && !isExplored(input(r-1,c),explored))
+    if(input(r-1,c) == WHITE && !isExplored(s,explored))
     {
-      frontier.pushBack(input(r-1,c));
+      frontier.pushBack(s);
       r--; //update row value
     }
-    if(input(r+1,c) == WHITE && !isExplored(input(r-1,c),explored))
+    if(input(r+1,c) == WHITE && !isExplored(s,explored))
     {
-      frontier.pushBack(input(r-1,c));
+      frontier.pushBack(s);
       r++; //update row value
     }
-    if(input(r,c-1) == WHITE && !isExplored(input(r-1,c),explored))
+    if(input(r,c-1) == WHITE && !isExplored(s,explored))
     {
-      frontier.pushBack(input(r-1,c));
+      frontier.pushBack(s);
       c--; //update row value
     }
-    if(input(r,c+1) == WHITE && !isExplored(input(r-1,c),explored))
+    if(input(r,c+1) == WHITE && !isExplored(s,explored))
     {
-      frontier.pushBack(input(r-1,c));
+      frontier.pushBack(s);
       c++; //update row value
     }
   }
@@ -79,11 +88,13 @@ int main(int argc, char *argv[])
 }
 
 //functions
-bool isExplored(Pixel TBS,std::vector<Pixel> exp)
+bool isExplored(Vertex TBS,std::vector<Vertex> exp)
 {
+  Vertex tester;
   for(int i = 0; i < exp.size(); i++)
   {
-    if(exp[i] == TBS)
+    tester = exp[i];
+    if((tester.p == TBS.p) && (tester.row == TBS.row) && (tester.column == TBS.column))
     {
       return true; //return true if the pixel has already been explore
     }
