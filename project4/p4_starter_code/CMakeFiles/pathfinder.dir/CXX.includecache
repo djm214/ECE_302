@@ -45,6 +45,8 @@ linked_list.hpp
 /home/dylan/github-test/ECE_302/project4/p4_starter_code/pathfinder.cpp
 iostream
 -
+vector
+-
 image.h
 /home/dylan/github-test/ECE_302/project4/p4_starter_code/image.h
 deque.hpp
