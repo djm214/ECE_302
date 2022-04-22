@@ -3,23 +3,66 @@
 // TODO implement the member functions here
 
 template <typename T>
-State<T> frontier_queue<T>::pop() {
-
-  //TODO
+State<T> frontier_queue<T>::pop() 
+{
+  std::vector<State<T>> temp;
   
-  //implement this the same way we implemented pop in the heap lecture. Compare using getFCost
+  temp.push_back(queue[0]); //hold the original root
+  queue[0] = queue[queue.size()-1]; //set root to last
+  queue.pop_back(); //remove last node
 
-  // needs return statement
+  int replaced = 0;
+  bool correctSpot = false;
 
+  while(!correctSpot && (replaced+1) < queue.size())
+  {
+    if(queue[replaced+1].getFCost() <= queue[replaced].getFCost())
+    {
+      correctSpot = true;
+    }
+    else
+    {
+      temp.push_back(queue[replaced]);
+
+      queue[replaced] = queue[replaced+1];
+      queue[replaced+1] = temp[0];
+
+      temp.pop_back();
+      replaced++;
+    }
+  }
+
+  return temp[0]; //return the original root after removal
 }
 
 template <typename T>
-void frontier_queue<T>::push(const T &p, std::size_t cost, std::size_t heur) {
+void frontier_queue<T>::push(const T &p, std::size_t cost, std::size_t heur) 
+{
+  queue.push_back(State<T>(p,cost,heur)); //add the state to the end of the queue
 
-  //TODO
-  
-  //implement this the same way we implemented push in the heap lecture.
+  std::vector<State<T>> temp;
+  int parentIndex;
+  int insertionIndex = queue.size()-1; //holds the end of the queue
+  bool rightSpot = false; //initialize bool to false
 
+  while(!rightSpot && (insertionIndex >= 0))
+  {
+    parentIndex = (insertionIndex)/2;
+    if(queue[insertionIndex].getFCost() <= queue[parentIndex].getFCost())
+    {
+      rightSpot = true;
+    }
+    else //bubble up process
+    {
+      temp.push_back(queue[parentIndex]);
+
+      queue[parentIndex] = queue[insertionIndex];
+      queue[insertionIndex] = temp[0];
+
+      temp.pop_back();
+      insertionIndex = parentIndex;
+    }
+  }
 }
 
 template <typename T>
@@ -29,19 +72,21 @@ bool frontier_queue<T>::empty()
 }
 
 template <typename T> 
-bool frontier_queue<T>::contains(const T &p) {
-
-  //TODO
-
-  return false;
-
+bool frontier_queue<T>::contains(const T &p) 
+{
+  for(int i = 0; i < queue.size(); i++)
+  {
+    if(p == queue[i].getValue())
+    {
+      return true; //return true if there is a match
+    }
+  }
+  return false; //return false if there is no match
 }
 
 template <typename T>
-void frontier_queue<T>::replaceif(const T &p, std::size_t cost) {
-
-  //TODO
-
+void frontier_queue<T>::replaceif(const T &p, std::size_t cost) 
+{
 }
 
 
