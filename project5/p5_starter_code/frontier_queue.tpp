@@ -5,12 +5,15 @@
 template <typename T>
 State<T> frontier_queue<T>::pop() 
 {
+  //This works, however, it doesn't have O(log n)
+  /*
   std::vector<State<T>> temp;
   temp.push_back(queue[0]);
 
   queue.erase(queue.begin());
   return temp[0]; //return the front of the queue
-  /*
+  */
+
   std::vector<State<T>> temp;
   
   temp.push_back(queue[0]); //hold the original root
@@ -24,20 +27,21 @@ State<T> frontier_queue<T>::pop()
   {
     if(queue[replaced+1].getFCost() >= queue[replaced].getFCost())
     {
-      correctSpot = true;
+      correctSpot = true; //this is where pop should be
     }
     else
     {
-      temp.push_back(queue[replaced]);
+      temp.push_back(queue[replaced]); //pushback the raplaced
 
-      queue[replaced] = queue[replaced+1];
-      queue[replaced+1] = temp[0];
+      //swapping
+      queue[replaced] = queue[replaced+1]; 
+      queue[replaced+1] = temp[1]; //get the second element as the first holds the original root
 
-      temp.pop_back();
-      replaced++;
+      temp.pop_back(); //remove the last element
+      replaced++; //traverse replaced
     }
   }
-  */
+  return temp[0];
 }
 
 template <typename T>
@@ -61,9 +65,11 @@ void frontier_queue<T>::push(const T &p, std::size_t cost, std::size_t heur)
     {
       temp.push_back(queue[parentIndex]);
 
+      //swapping process
       queue[parentIndex] = queue[insertionIndex];
       queue[insertionIndex] = temp[0];
 
+      //remove the temp vector
       temp.pop_back();
       insertionIndex = parentIndex;
     }
@@ -92,10 +98,13 @@ bool frontier_queue<T>::contains(const T &p)
 template <typename T>
 void frontier_queue<T>::replaceif(const T &p, std::size_t cost) 
 {
+  //traverse the list
   for(int i = 0; i < queue.size(); i++)
   {
+    //if the value is found
     if(p == queue[i].getValue())
     {
+      //if the cost parameter is less than the cost of the variable in the list's cost
       if(cost < queue[i].getFCost())
       {
         queue[i].updatePathCost(cost); //replace if cost < queue value cost

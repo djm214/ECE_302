@@ -36,7 +36,7 @@ public:
    */
   void replaceif(const T &p, std::size_t cost);
 
-public:
+private:
 
   std::vector<State<T>> queue;
   
