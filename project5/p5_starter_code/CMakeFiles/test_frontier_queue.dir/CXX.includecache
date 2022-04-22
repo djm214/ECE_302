@@ -241,6 +241,8 @@ state.hpp
 /home/dylan/github-test/ECE_302/project5/p5_starter_code/state.hpp
 vector
 -
+catch.hpp
+/home/dylan/github-test/ECE_302/project5/p5_starter_code/catch.hpp
 frontier_queue.tpp
 /home/dylan/github-test/ECE_302/project5/p5_starter_code/frontier_queue.tpp
 

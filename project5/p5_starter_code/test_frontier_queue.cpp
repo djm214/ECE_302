@@ -68,6 +68,13 @@ TEST_CASE("Thorough push/pop test", "[frontier_queue]")
         fq.push(rand() % 1000, i, i);
     }
 
+    for(int i = 0; i < 5; i++)
+    {
+        std::clog << fq.queue[i].getFCost() << ": " << fq.queue[i].getValue() << "\n";
+    }
+
+    std::clog << "---------\n";
+
     std::vector<State<int>> states;
     while (!fq.empty())
     {

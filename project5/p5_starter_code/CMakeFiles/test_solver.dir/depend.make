@@ -4,6 +4,7 @@
 CMakeFiles/test_solver.dir/puzzle.cpp.o: puzzle.cpp
 CMakeFiles/test_solver.dir/puzzle.cpp.o: puzzle.hpp
 
+CMakeFiles/test_solver.dir/puzzle_solver.cpp.o: catch.hpp
 CMakeFiles/test_solver.dir/puzzle_solver.cpp.o: frontier_queue.hpp
 CMakeFiles/test_solver.dir/puzzle_solver.cpp.o: frontier_queue.tpp
 CMakeFiles/test_solver.dir/puzzle_solver.cpp.o: puzzle.hpp

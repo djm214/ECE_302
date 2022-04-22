@@ -3,6 +3,7 @@
 
 #include "state.hpp"
 #include <vector>
+#include "catch.hpp"
 
 template <typename T>
 class frontier_queue {
@@ -35,7 +36,7 @@ public:
    */
   void replaceif(const T &p, std::size_t cost);
 
-private:
+public:
 
   std::vector<State<T>> queue;
   

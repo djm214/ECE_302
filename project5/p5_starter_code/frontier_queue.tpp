@@ -6,6 +6,12 @@ template <typename T>
 State<T> frontier_queue<T>::pop() 
 {
   std::vector<State<T>> temp;
+  temp.push_back(queue[0]);
+
+  queue.erase(queue.begin());
+  return temp[0]; //return the front of the queue
+  /*
+  std::vector<State<T>> temp;
   
   temp.push_back(queue[0]); //hold the original root
   queue[0] = queue[queue.size()-1]; //set root to last
@@ -16,7 +22,7 @@ State<T> frontier_queue<T>::pop()
 
   while(!correctSpot && (replaced+1) < queue.size())
   {
-    if(queue[replaced+1].getFCost() <= queue[replaced].getFCost())
+    if(queue[replaced+1].getFCost() >= queue[replaced].getFCost())
     {
       correctSpot = true;
     }
@@ -31,8 +37,7 @@ State<T> frontier_queue<T>::pop()
       replaced++;
     }
   }
-
-  return temp[0]; //return the original root after removal
+  */
 }
 
 template <typename T>
@@ -48,7 +53,7 @@ void frontier_queue<T>::push(const T &p, std::size_t cost, std::size_t heur)
   while(!rightSpot && (insertionIndex >= 0))
   {
     parentIndex = (insertionIndex)/2;
-    if(queue[insertionIndex].getFCost() <= queue[parentIndex].getFCost())
+    if(queue[insertionIndex].getFCost() >= queue[parentIndex].getFCost())
     {
       rightSpot = true;
     }
@@ -87,6 +92,16 @@ bool frontier_queue<T>::contains(const T &p)
 template <typename T>
 void frontier_queue<T>::replaceif(const T &p, std::size_t cost) 
 {
+  for(int i = 0; i < queue.size(); i++)
+  {
+    if(p == queue[i].getValue())
+    {
+      if(cost < queue[i].getFCost())
+      {
+        queue[i].updatePathCost(cost); //replace if cost < queue value cost
+      }
+    }
+  }
 }
 
 
